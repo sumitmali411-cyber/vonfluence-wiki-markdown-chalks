@@ -1,0 +1,99 @@
+h1. Architecture Overview
+
+This document describes the technical architecture of the Personal Documentation System.
+
+h2. System Components
+
+{mermaid}
+graph TB
+    subgraph Frontend["Angular Frontend :4200"]
+        AL[Doc List Component]
+        AV[Doc Viewer Component]
+        AE[Doc Editor Component]
+        AS[Docs Service]
+        CP[confluenceParser.js]
+        ML[mermaidLoader.js]
+    end
+
+    subgraph Backend["Spring Boot Backend :8080"]
+        DC[DocumentController]
+        DS[DocumentService]
+        FS[File System]
+    end
+
+    AL -- HTTP GET /api/docs --> DC
+    AV -- HTTP GET /api/docs/:id --> DC
+    AE -- HTTP POST /api/docs/:id --> DC
+    DC --> DS
+    DS --> FS
+    AV --> CP
+    CP --> ML
+{/mermaid}
+
+h2. Backend
+
+The backend is a Spring Boot 3 application that exposes a REST API over the local filesystem.
+
+||Component||Responsibility||
+|{{PersonalDocsApplication}}|Entry point|
+|{{DocumentController}}|REST endpoints (list / get / save / delete)|
+|{{DocumentService}}|File I/O, title extraction, category resolution|
+|{{Document}}|Full document model (includes content)|
+|{{DocumentMeta}}|Lightweight list entry (no content)|
+
+h3. API Reference
+
+||Method||Path||Description||
+|GET|/api/docs|List all documents (metadata only)|
+|GET|/api/docs/\{id\}|Retrieve a document with full content|
+|POST|/api/docs/\{id\}|Create or update a document|
+|DELETE|/api/docs/\{id\}|Delete a document|
+
+h3. Storage Layout
+
+{noformat}
+~/personal-docs/docs/
+├── getting-started.wiki      → id: "getting-started"
+├── architecture/
+│   └── overview.wiki         → id: "architecture/overview"
+└── team/
+    └── on-boarding.wiki      → id: "team/on-boarding"
+{noformat}
+
+h2. Frontend
+
+The Angular 17 frontend uses *Angular Material* for the shell layout and delegates rendering to the two JS modules ported from the *Vonfluence* wiki previewer.
+
+h3. Rendering Pipeline
+
+{mermaid}
+sequenceDiagram
+    participant U as User
+    participant AV as DocViewer
+    participant CP as confluenceParser
+    participant ML as mermaidLoader
+
+    U->>AV: select document
+    AV->>AV: fetch /api/docs/:id
+    AV->>CP: parseConfluence(content)
+    CP-->>AV: raw HTML
+    AV->>AV: DOMPurify.sanitize
+    AV->>AV: innerHTML = sanitisedHtml
+    AV->>ML: renderMermaid(viewerEl)
+    ML-->>AV: SVGs injected
+    AV-->>U: page rendered
+{/mermaid}
+
+h2. Key Design Decisions
+
+{tip}
+*File-first storage* — documents are plain text files so you can edit them with any text editor, commit them to git, or sync them with any cloud drive.
+{tip}
+
+{note}
+*No database* — the backend has zero external dependencies beyond the JDK and Maven. Just run and go.
+{note}
+
+{warning}
+*No authentication* — this is a local-only personal tool. Do not expose port 8080 publicly without adding Spring Security.
+{warning}

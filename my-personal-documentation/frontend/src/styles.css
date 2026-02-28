@@ -1,0 +1,121 @@
+/* Global styles for Personal Docs */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: Roboto, Arial, sans-serif;
+  font-size: 16px;
+  color: var(--text, #212121);
+  background: var(--bg, #f5f5f5);
+}
+
+/* ── Theme variables ─────────────────────────────────────── */
+body { --bg: #f5f5f5; --surface: #fff; --text: #212121; --border-color: #e0e0e0; --editor-bg: #fafafa; }
+body[data-theme="dark"] {
+  --bg: #121212; --surface: #1e1e1e; --text: #e0e0e0;
+  --border-color: #333; --editor-bg: #1e1e1e;
+}
+
+/* ── Wiki content styles ─────────────────────────────────── */
+.wiki-content { line-height: 1.7; }
+
+.wiki-content h1 { font-size: 1.8rem; font-weight: 600; margin: 0 0 1rem; border-bottom: 2px solid var(--border-color, #e0e0e0); padding-bottom: 0.4rem; }
+.wiki-content h2 { font-size: 1.35rem; font-weight: 600; margin: 1.6rem 0 0.6rem; }
+.wiki-content h3 { font-size: 1.1rem; font-weight: 600; margin: 1.2rem 0 0.4rem; }
+.wiki-content h4, .wiki-content h5, .wiki-content h6 { font-size: 1rem; font-weight: 600; margin: 1rem 0 0.4rem; }
+
+.wiki-content p { margin: 0.6rem 0 1rem; }
+.wiki-content a { color: #3f51b5; text-decoration: none; }
+.wiki-content a:hover { text-decoration: underline; }
+
+.wiki-content code {
+  font-family: 'Fira Code', 'Cascadia Code', monospace;
+  font-size: 0.875rem;
+  background: rgba(0,0,0,0.06);
+  padding: 2px 5px;
+  border-radius: 3px;
+}
+
+.wiki-content pre {
+  background: #263238;
+  color: #cfd8dc;
+  padding: 16px;
+  border-radius: 6px;
+  overflow-x: auto;
+  margin: 1rem 0;
+  font-family: 'Fira Code', 'Cascadia Code', monospace;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+.wiki-content pre code { background: none; padding: 0; }
+
+.wiki-content hr { border: none; border-top: 1px solid var(--border-color, #e0e0e0); margin: 1.5rem 0; }
+
+/* Tables */
+.wiki-content table { border-collapse: collapse; width: 100%; margin: 1rem 0; }
+.wiki-content th, .wiki-content td {
+  border: 1px solid var(--border-color, #e0e0e0);
+  padding: 8px 12px; text-align: left;
+}
+.wiki-content th { background: rgba(63,81,181,0.08); font-weight: 600; }
+.wiki-content tr:nth-child(even) td { background: rgba(0,0,0,0.02); }
+
+/* Lists */
+.wiki-content ul, .wiki-content ol { padding-left: 1.5rem; margin: 0.5rem 0 1rem; }
+.wiki-content li { margin: 0.3rem 0; }
+
+/* Blockquote */
+.wiki-content blockquote {
+  border-left: 4px solid #3f51b5;
+  margin: 1rem 0;
+  padding: 8px 16px;
+  background: rgba(63,81,181,0.05);
+  border-radius: 0 4px 4px 0;
+  font-style: italic;
+}
+
+/* Confluence panels */
+.confluence-panel {
+  border-radius: 6px;
+  margin: 1rem 0;
+  overflow: hidden;
+}
+.confluence-panel-body {
+  padding: 12px 16px;
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+.confluence-panel-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 2px; }
+.confluence-panel-title { font-weight: 600; padding: 8px 16px 0; }
+
+.confluence-panel-info   { background: #e3f2fd; border: 1px solid #90caf9; }
+.confluence-panel-tip    { background: #e8f5e9; border: 1px solid #a5d6a7; }
+.confluence-panel-warning{ background: #fff8e1; border: 1px solid #ffe082; }
+.confluence-panel-note   { background: #f3e5f5; border: 1px solid #ce93d8; }
+.confluence-panel-panel  { background: var(--surface, #fff); border: 1px solid var(--border-color, #e0e0e0); }
+
+/* Mermaid */
+.mermaid-diagram { margin: 1rem 0; overflow-x: auto; text-align: center; }
+.mermaid-diagram svg { max-width: 100%; height: auto; }
+.mermaid-error {
+  background: #ffebee; color: #b71c1c; padding: 12px 16px;
+  border-radius: 4px; border: 1px solid #ef9a9a; margin: 1rem 0;
+}
+
+/* Print */
+@media print {
+  .app-toolbar, .sidenav, .viewer-toolbar, .viewer-actions { display: none !important; }
+  .wiki-content { padding: 0; max-width: 100%; }
+}
+
+/* Dark theme adjustments */
+body[data-theme="dark"] .wiki-content code { background: rgba(255,255,255,0.1); }
+body[data-theme="dark"] .wiki-content th { background: rgba(63,81,181,0.2); }
+body[data-theme="dark"] .wiki-content tr:nth-child(even) td { background: rgba(255,255,255,0.03); }
+body[data-theme="dark"] .confluence-panel-info    { background: #0d2137; border-color: #1565c0; }
+body[data-theme="dark"] .confluence-panel-tip     { background: #0a1f0a; border-color: #2e7d32; }
+body[data-theme="dark"] .confluence-panel-warning { background: #1c1400; border-color: #f9a825; }
+body[data-theme="dark"] .confluence-panel-note    { background: #180e20; border-color: #7b1fa2; }

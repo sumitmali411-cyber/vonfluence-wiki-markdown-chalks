@@ -1,0 +1,41 @@
+h1. Team On-boarding
+
+Welcome to the team! This document covers everything you need to get up to speed.
+
+h2. Prerequisites
+
+* Git — [https://git-scm.com]
+* Java 17+ — [https://adoptium.net]
+* Node 18+ — [https://nodejs.org]
+* Your favourite IDE (IntelliJ IDEA recommended for the backend, VS Code for the frontend)
+
+h2. First-day Checklist
+
+# Clone the repository
+# Run the backend: {{./mvnw spring-boot:run}}
+# Run the frontend: {{npm install && npm start}}
+# Read the [Architecture Overview|architecture/overview]
+# Ask a question in the team channel
+
+h2. Conventions
+
+h3. Document IDs
+
+Documents use kebab-case slugs. Category subdirectories use the same convention.
+
+||Good||Bad||
+|{{team/on-boarding}}|{{Team/OnBoarding}}|
+|{{architecture/data-flow}}|{{Architecture_DataFlow}}|
+
+h3. Writing Style
+
+{tip}
+Keep headings short. Use *bold* for key terms on first use. Prefer lists over long paragraphs.
+{tip}
+
+h2. Useful Links
+
+* [Spring Boot docs|https://docs.spring.io/spring-boot/docs/current/reference/html/]
+* [Angular docs|https://angular.dev]
+* [Confluence wiki syntax|https://confluence.atlassian.com/doc/confluence-wiki-markup-251003035.html]
+* [Mermaid diagram syntax|https://mermaid.js.org/intro/]

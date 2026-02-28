@@ -1,0 +1,61 @@
+h1. Getting Started
+
+Welcome to your *Personal Documentation System*. This page explains how to use and extend it.
+
+h2. What Is This?
+
+A self-hosted, file-backed documentation portal that renders Confluence wiki markup and Mermaid diagrams in a clean Angular UI.
+
+h2. Quick Start
+
+# Start the Spring Boot backend:
+{code:language=bash}
+cd backend
+./mvnw spring-boot:run
+{code}
+
+# Start the Angular frontend:
+{code:language=bash}
+cd frontend
+npm install
+npm start
+{code}
+
+# Open [http://localhost:4200|http://localhost:4200] in your browser.
+
+h2. Writing Documents
+
+Documents are plain-text files stored under {{~/personal-docs/docs/}}.
+
+||Extension||Format||
+|.wiki|Confluence wiki markup|
+|.md|Markdown|
+|.txt|Plain text (treated as wiki)|
+
+Place files in subdirectories to create categories:
+
+{noformat}
+docs/
+├── getting-started.wiki
+├── architecture/
+│   └── overview.wiki
+└── team/
+    └── on-boarding.wiki
+{noformat}
+
+h2. Supported Syntax
+
+{info}
+See the *Architecture* document for a full syntax reference including Mermaid diagrams and all Confluence macros.
+{info}
+
+h2. Data Flow
+
+{mermaid}
+graph LR
+    A[.wiki / .md file] --> B[Spring Boot API]
+    B --> C[Angular Frontend]
+    C --> D[confluenceParser.js]
+    D --> E[mermaidLoader.js]
+    E --> F[Rendered Page]
+{/mermaid}

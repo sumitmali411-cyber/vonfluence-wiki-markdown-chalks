@@ -1,0 +1,4 @@
+#!/bin/sh
+# Maven Wrapper script
+MAVEN_PROJECTBASEDIR="${BASH_SOURCE%/*}"
+exec mvn "$@"
