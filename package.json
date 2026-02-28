@@ -1,0 +1,6 @@
+{
+  "name": "vonfluence-wiki-markdown-chalks",
+  "version": "1.0.0",
+  "description": "Confluence wiki syntax viewer with Mermaid diagrams and PDF export",
+  "private": true
+}

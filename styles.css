@@ -1,0 +1,365 @@
+/* ============================================================
+   Theme variables
+   ============================================================ */
+:root {
+    --bg: #ffffff;
+    --text: #222;
+    --toolbar: #f3f3f3;
+    --pre-bg: #272822;
+    --pre-color: #f8f8f2;
+    --border: #ccc;
+    --link: #0052cc;
+
+    /* Panel colours — Chalk-inspired */
+    --panel-info-bg: #e6f0ff;
+    --panel-info-border: #0052cc;
+    --panel-tip-bg: #e3fcef;
+    --panel-tip-border: #00875a;
+    --panel-warning-bg: #fff8e6;
+    --panel-warning-border: #ff991f;
+    --panel-note-bg: #fffae6;
+    --panel-note-border: #ffab00;
+    --panel-generic-bg: #f4f5f7;
+    --panel-generic-border: #dfe1e6;
+}
+
+[data-theme="dark"] {
+    --bg: #1e1e1e;
+    --text: #eee;
+    --toolbar: #2c2c2c;
+    --border: #555;
+    --link: #82b4ff;
+
+    --panel-info-bg: #0d1f3c;
+    --panel-info-border: #4c9aff;
+    --panel-tip-bg: #0d2b1e;
+    --panel-tip-border: #36b37e;
+    --panel-warning-bg: #2e1f00;
+    --panel-warning-border: #ff991f;
+    --panel-note-bg: #2b2200;
+    --panel-note-border: #ffab00;
+    --panel-generic-bg: #252628;
+    --panel-generic-border: #4a4b50;
+}
+
+/* ============================================================
+   Base
+   ============================================================ */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+}
+
+a {
+    color: var(--link);
+}
+
+/* ============================================================
+   Toolbar
+   ============================================================ */
+.toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    background: var(--toolbar);
+    border-bottom: 1px solid var(--border);
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.left-tools {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 4px;
+}
+
+button,
+select {
+    padding: 6px 10px;
+    cursor: pointer;
+    border: 1px solid var(--border);
+    background: var(--bg);
+    color: var(--text);
+    border-radius: 4px;
+    font-size: 13px;
+}
+
+button:hover {
+    background: var(--toolbar);
+}
+
+/* ============================================================
+   Layout
+   ============================================================ */
+.container {
+    display: flex;
+    height: calc(100vh - 50px);
+}
+
+.preview-pane {
+    flex: 1;
+    overflow: auto;
+    padding: 24px 32px;
+}
+
+.raw-pane {
+    flex: 1;
+    padding: 20px;
+    border-left: 1px solid var(--border);
+    background: var(--bg);
+    color: var(--text);
+    font-family: monospace;
+    font-size: 13px;
+    resize: none;
+}
+
+.hidden {
+    display: none;
+}
+
+/* ============================================================
+   Drop zone
+   ============================================================ */
+#dropZone {
+    border: 2px dashed transparent;
+    transition: border-color 0.15s, background 0.15s;
+}
+
+#dropZone.dragover {
+    border-color: var(--panel-info-border);
+    background: var(--panel-info-bg);
+}
+
+/* ============================================================
+   Preview content — tables
+   ============================================================ */
+#preview table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 12px 0;
+}
+
+#preview th,
+#preview td {
+    border: 1px solid var(--border);
+    padding: 8px 12px;
+    text-align: left;
+}
+
+#preview th {
+    background: var(--toolbar);
+    font-weight: 600;
+}
+
+#preview tr:nth-child(even) td {
+    background: color-mix(in srgb, var(--toolbar) 50%, transparent);
+}
+
+/* ============================================================
+   Preview content — headings, hr, blockquote
+   ============================================================ */
+#preview h1 { font-size: 1.8em; border-bottom: 2px solid var(--border); padding-bottom: 4px; }
+#preview h2 { font-size: 1.5em; border-bottom: 1px solid var(--border); padding-bottom: 2px; }
+#preview h3 { font-size: 1.25em; }
+
+#preview hr {
+    border: none;
+    border-top: 2px solid var(--border);
+    margin: 16px 0;
+}
+
+#preview blockquote {
+    border-left: 4px solid var(--border);
+    margin: 12px 0;
+    padding: 8px 16px;
+    color: color-mix(in srgb, var(--text) 70%, transparent);
+    font-style: italic;
+}
+
+/* ============================================================
+   Code / pre
+   ============================================================ */
+pre {
+    background: var(--pre-bg);
+    color: var(--pre-color);
+    padding: 12px;
+    overflow-x: auto;
+    border-radius: 4px;
+    margin: 12px 0;
+}
+
+code {
+    font-family: "Courier New", Courier, monospace;
+    font-size: 0.9em;
+}
+
+/* ============================================================
+   Confluence panels
+   ============================================================ */
+.confluence-panel {
+    border-left: 4px solid var(--panel-generic-border);
+    background: var(--panel-generic-bg);
+    border-radius: 4px;
+    margin: 12px 0;
+    overflow: hidden;
+}
+
+.confluence-panel-info {
+    border-left-color: var(--panel-info-border);
+    background: var(--panel-info-bg);
+}
+
+.confluence-panel-tip {
+    border-left-color: var(--panel-tip-border);
+    background: var(--panel-tip-bg);
+}
+
+.confluence-panel-warning {
+    border-left-color: var(--panel-warning-border);
+    background: var(--panel-warning-bg);
+}
+
+.confluence-panel-note {
+    border-left-color: var(--panel-note-border);
+    background: var(--panel-note-bg);
+}
+
+.confluence-panel-panel {
+    border-left-color: var(--panel-generic-border);
+    background: var(--panel-generic-bg);
+}
+
+.confluence-panel-title {
+    font-weight: 700;
+    padding: 8px 12px 6px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    font-size: 0.9em;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.confluence-panel-body {
+    padding: 10px 14px;
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+}
+
+.confluence-panel-icon {
+    flex-shrink: 0;
+    font-size: 1.1em;
+    margin-top: 1px;
+}
+
+/* ============================================================
+   Mermaid diagrams
+   ============================================================ */
+.mermaid-diagram {
+    margin: 12px 0;
+    overflow-x: auto;
+}
+
+.mermaid-diagram svg {
+    max-width: 100%;
+    height: auto;
+}
+
+.mermaid-error {
+    color: #b00020;
+    background: #fff2f2;
+    border: 1px solid #f5c6cb;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+/* ============================================================
+   Processing indicator
+   ============================================================ */
+.processing-indicator {
+    position: fixed;
+    right: 16px;
+    bottom: 16px;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    border-radius: 999px;
+    background: rgba(110, 110, 110, 0.92);
+    color: #fff;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.processing-indicator.hidden {
+    display: none;
+}
+
+.spinner {
+    width: 14px;
+    height: 14px;
+    border: 2px solid #93c5fd;
+    border-top-color: #2563eb;
+    border-right-color: #2563eb;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    flex: 0 0 14px;
+}
+
+button.loading-control,
+select.loading-control {
+    opacity: 0.85;
+    cursor: progress;
+}
+
+button.loading-control::after {
+    content: "";
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    margin-left: 8px;
+    vertical-align: middle;
+    border: 2px solid currentColor;
+    border-right-color: transparent;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ============================================================
+   Print / PDF
+   ============================================================ */
+@media print {
+    .toolbar,
+    #rawMarkdown,
+    #processingIndicator {
+        display: none !important;
+    }
+
+    .container {
+        height: auto !important;
+    }
+
+    .preview-pane {
+        overflow: visible !important;
+        height: auto !important;
+    }
+
+    pre {
+        white-space: pre-wrap;
+    }
+}
