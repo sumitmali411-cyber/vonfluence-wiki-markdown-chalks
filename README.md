@@ -17,7 +17,6 @@ A zero-dependency browser app for previewing **Confluence wiki markup** with liv
 ### Block Macros
 | Macro | Description |
 |-------|-------------|
-| `{code:language=js}...{code}` | Syntax-highlighted code block |
 | `{noformat}...{noformat}` | Preformatted text |
 | `{mermaid}...{/mermaid}` | Mermaid diagram |
 | `{info}...{info}` | Info panel |
