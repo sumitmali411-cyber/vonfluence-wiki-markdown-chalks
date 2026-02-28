@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Confluence Wiki Viewer</title>
+    <title>Vonfluence — Confluence Wiki Viewer</title>
 
     <!-- Sanitiser -->
     <script src="https://cdn.jsdelivr.net/npm/dompurify@3.0.6/dist/purify.min.js"></script>
@@ -16,6 +16,7 @@
     <div class="left-tools">
         <input type="file" id="fileInput" accept=".wiki,.txt" hidden />
         <button id="uploadBtn">Upload .wiki / .txt</button>
+        <button id="sampleBtn">Sample</button>
         <select id="mermaidVersion" title="Mermaid version">
             <option value="10.8.0">Mermaid 10.8</option>
             <option value="11.2.0">Mermaid 11.2</option>
@@ -24,6 +25,8 @@
         </select>
         <button id="toggleRaw">Toggle Raw</button>
         <button id="downloadPdfBtn">Download PDF</button>
+        <button id="exportHtmlBtn">Export HTML</button>
+        <button id="saveWikiBtn">Save .wiki</button>
     </div>
     <div class="right-tools">
         <button id="themeToggle">Theme</button>
