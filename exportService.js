@@ -8,8 +8,10 @@
 // ---------------------------------------------------------------------------
 
 /**
- * Trigger browser print dialog (Save as PDF).
- * Temporarily sets the document title so the suggested PDF filename is meaningful.
+ * Open the browser print dialog and suggest a filename by temporarily setting the document title.
+ *
+ * The previous document title is restored shortly after the dialog is opened (approximately 500ms).
+ * @param {string} title - Title to set on the document so the print/save dialog suggests it as the filename.
  */
 export function exportAsPdf(title = "Vonfluence Export") {
     const prev = document.title;
@@ -24,7 +26,8 @@ export function exportAsPdf(title = "Vonfluence Export") {
 // ---------------------------------------------------------------------------
 
 /**
- * Collect all in-page CSS rule text (best-effort — cross-origin sheets are skipped).
+ * Collects all CSS rule texts from same-origin stylesheets in the document; cross-origin sheets are skipped.
+ * @returns {string} All collected CSS rules concatenated with newline separators.
  */
 function collectStyles() {
     const rules = [];
@@ -79,10 +82,9 @@ ${bodyContent}
 // ---------------------------------------------------------------------------
 
 /**
- * Download the raw Confluence wiki markup as a .wiki file.
- *
- * @param {string} text     Raw wiki markup.
- * @param {string} filename Base filename (without extension).
+ * Create and download a .wiki file containing the provided Confluence wiki markup.
+ * @param {string} text - Confluence wiki markup to write into the file.
+ * @param {string} [filename="export"] - Base filename (no extension); will be slugified and saved with a `.wiki` extension.
  */
 export function exportAsWiki(text, filename = "export") {
     downloadBlob(text, `${slugify(filename)}.wiki`, "text/plain;charset=utf-8");
@@ -90,7 +92,11 @@ export function exportAsWiki(text, filename = "export") {
 
 // ---------------------------------------------------------------------------
 // Internal helpers
-// ---------------------------------------------------------------------------
+/**
+ * Escape the characters &, <, >, and " so a string can be safely inserted into HTML.
+ * @param {string} str - Input string to escape.
+ * @returns {string} The input with `&`, `<`, `>`, and `"` replaced by their HTML entities.
+ */
 
 function escapeHtml(str) {
     return str
@@ -100,6 +106,15 @@ function escapeHtml(str) {
         .replace(/"/g, "&quot;");
 }
 
+/**
+ * Produce a lowercase, filename-safe slug from a string.
+ *
+ * Converts the input to lowercase, replaces runs of non-alphanumeric characters with
+ * single hyphens, trims leading/trailing hyphens, and falls back to `"export"` when
+ * the resulting slug would be empty.
+ * @param {string} str - Input text to convert into a slug; may be empty or falsy.
+ * @returns {string} The slugified string suitable for filenames or URLs, or `"export"` if empty.
+ */
 function slugify(str) {
     return (str || "export")
         .toLowerCase()
@@ -107,6 +122,12 @@ function slugify(str) {
         .replace(/^-+|-+$/g, "") || "export";
 }
 
+/**
+ * Trigger a browser download for the provided content as a file.
+ * @param {BlobPart|ArrayBuffer|ArrayBufferView|string} content - Data to write into the downloaded file; passed to the Blob constructor.
+ * @param {string} filename - Suggested filename for the downloaded file (sets the `download` attribute).
+ * @param {string} mimeType - MIME type for the created Blob (e.g., "text/plain;charset=utf-8").
+ */
 function downloadBlob(content, filename, mimeType) {
     const blob = new Blob([content], { type: mimeType });
     const url = URL.createObjectURL(blob);
