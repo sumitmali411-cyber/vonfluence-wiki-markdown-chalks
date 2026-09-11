@@ -16,10 +16,16 @@ const PLACEHOLDER_RE = /\x00BLOCK_(\d+)\x00/g;
 // ---------------------------------------------------------------------------
 
 function escapeHtml(text) {
-    return text
+    // Quotes matter: this is used inside attribute values (href, style), where
+    // an unescaped " or ' closes the attribute and lets the input add its own
+    // (for example onmouseover=). DOMPurify downstream would strip those, but
+    // this function must be safe on its own.
+    return String(text ?? "")
         .replace(/&/g, "&amp;")
         .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;");
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#x27;");
 }
 
 function panelHtml(type, icon, content, title) {
